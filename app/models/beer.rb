@@ -1,5 +1,3 @@
-class Beer < ApplicationRecord
-  validates :name, presence: true
-  validates :price, presence: true
-  validates :quantity, presence: true
+class Beer < Product
+  
 end
