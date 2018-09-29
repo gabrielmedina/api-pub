@@ -1,9 +1,11 @@
 source 'https://rubygems.org'
 
+gem 'friendly_id', '~> 5.2.0'
 gem 'puma', '~> 3.7'
 gem 'pg', '~> 0.21.0'
 gem 'rack-cors'
 gem 'rails', '~> 5.1.6'
+gem 'sluggi'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

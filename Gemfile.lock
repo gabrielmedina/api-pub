@@ -45,6 +45,8 @@ GEM
     crass (1.0.4)
     erubi (1.7.1)
     ffi (1.9.25)
+    friendly_id (5.2.4)
+      activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.1.0)
@@ -99,6 +101,9 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     ruby_dep (1.5.0)
+    sluggi (1.0.1)
+      activerecord (~> 5.1)
+      railties (~> 5.1)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -124,11 +129,13 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  friendly_id (~> 5.2.0)
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.21.0)
   puma (~> 3.7)
   rack-cors
   rails (~> 5.1.6)
+  sluggi
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
