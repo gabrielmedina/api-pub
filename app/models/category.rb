@@ -1,9 +1,8 @@
-class Product < ApplicationRecord
-  belongs_to :category
+class Category < ApplicationRecord
+  has_many :products, dependent: :destroy
 
   validates :name, presence: true
-  validates :price, presence: true
-  validates :quantity, presence: true
+  validates :description, presence: true
 
   extend FriendlyId
   friendly_id :name, use: :slugged

@@ -1,3 +1,0 @@
-class Beer < Product
-  
-end
