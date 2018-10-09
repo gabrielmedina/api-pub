@@ -5,11 +5,12 @@
 #   gem 'sqlite3'
 #
 default: &default
+  host: 127.0.0.1
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  # username: usuario_do_seu_banco
-  # password: senha_do_seu_banco
+  # username:
+  # password: 
   timeout: 5000
 
 development:

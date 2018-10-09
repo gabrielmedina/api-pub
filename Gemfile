@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'carrierwave'
+gem 'carrierwave-ftp', require: 'carrierwave/storage/sftp'
 gem 'friendly_id', '~> 5.2.0'
 gem 'puma', '~> 3.7'
 gem 'pg', '~> 0.21.0'
