@@ -25,8 +25,7 @@ module Api
         else
           render json: {
             status: 'ERROR',
-            message: 'Opa, não localizamos esse produto!',
-            data: @product.erros
+            message: 'Opa, não localizamos esse produto!'
           }, status: :unprocessable_entity
         end
       end
@@ -44,8 +43,7 @@ module Api
         else
           render json: {
             status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.',
-            data: @product.erros
+            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
           }, status: :unprocessable_entity
         end
       end
@@ -61,8 +59,7 @@ module Api
         else
           render json: {
             status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.',
-            data: @product.erros
+            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
           }, status: :unprocessable_entity
         end
       end
@@ -78,8 +75,7 @@ module Api
         else
           render json: {
             status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.',
-            data: @product.erros
+            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
           }, status: :unprocessable_entity
         end
       end
@@ -93,7 +89,7 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def product_params
-        params.require(:product).permit(:name, :price, :quantity)
+        params.require(:product).permit(:name, :price, :quantity, :image, :category_id)
       end
     end
   end

@@ -25,8 +25,7 @@ module Api
         else
           render json: {
             status: 'ERROR',
-            message: 'Opa, não localizamos essa categoria!',
-            data: @category.erros
+            message: 'Opa, não localizamos essa categoria!'
           }, status: :unprocessable_entity
         end
       end
@@ -44,8 +43,7 @@ module Api
         else
           render json: {
             status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.',
-            data: @category.erros
+            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
           }, status: :unprocessable_entity
         end
       end
@@ -61,8 +59,7 @@ module Api
         else
           render json: {
             status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.',
-            data: @category.erros
+            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
           }, status: :unprocessable_entity
         end
       end
@@ -78,8 +75,7 @@ module Api
         else
           render json: {
             status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.',
-            data: @category.erros
+            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
           }, status: :unprocessable_entity
         end
       end
