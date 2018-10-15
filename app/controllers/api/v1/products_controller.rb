@@ -59,8 +59,6 @@ module Api
         else
           render json: {
             status: 'ERROR',
-            message: @message_error,
-            data: data
           }, status: :unprocessable_entity
         end
       end
@@ -76,7 +74,7 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def product_params
-        params.require(:product).permit(:name, :price, :quantity)
+        params.require(:product).permit(:name, :price, :quantity, :image, :category_id)
       end
     end
   end
