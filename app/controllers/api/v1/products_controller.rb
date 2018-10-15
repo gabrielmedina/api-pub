@@ -6,27 +6,15 @@ module Api
       # GET /products
       def index
         @products = Product.order('created_at DESC')
-
-        render json: {
-          status: 'SUCCESS',
-          message: 'Sucesso!',
-          data: @products
-        }, status: :ok
+        render_json(:success, @products)
       end
 
       # GET /products/1
       def show
         if @product
-          render json: {
-            status: 'SUCCESS',
-            message: 'Sucesso!',
-            data: @product
-          }, status: :ok
+          render_json(:success, @product)
         else
-          render json: {
-            status: 'ERROR',
-            message: 'Opa, não localizamos esse produto!'
-          }, status: :unprocessable_entity
+          render_json(:error)
         end
       end
 
@@ -35,56 +23,53 @@ module Api
         @product = Product.new(product_params)
 
         if @product.save
-          render json: {
-            status: 'SUCCESS',
-            message: 'Produto adicionado!',
-            data: @product
-          }, status: :ok
+          render_json(:success, @product, 'Produto cadastro!')
         else
-          render json: {
-            status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
-          }, status: :unprocessable_entity
+          render_json(:error)
         end
       end
 
       # PATCH/PUT /products/1
       def update
         if @product.update_attributes(product_params)
-          render json: {
-            status: 'SUCCESS',
-            message: 'Produto atualizado!',
-            data: @product
-          }, status: :ok
+          render_json(:success, @product, 'Produto atualizado!')
         else
-          render json: {
-            status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
-          }, status: :unprocessable_entity
+          render_json(:error)
         end
       end
 
       # DELETE /products/1
       def destroy
         if @product.destroy
-          render json: {
-            status: 'SUCCESS',
-            message: 'Produto deletado!',
-            data: @product
-          }, status: :ok
+          render_json(:success, @product, 'Produto deletado!')
         else
-          render json: {
-            status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
-          }, status: :unprocessable_entity
+          render_json(:error)
         end
       end
 
       private
 
+      def render_json(status, data = {}, message = 'sucesso')
+        if status == :success
+          render json: {
+            status: 'SUCCESS',
+            message: message,
+            data: data
+          }, status: :ok
+        else
+          render json: {
+            status: 'ERROR',
+          }, status: :unprocessable_entity
+        end
+      end
+
       # Use callbacks to share common setup or constraints between actions.
       def set_product
-        @product = Product.friendly.find(params[:id])
+        begin
+          @product = Product.friendly.find(params[:id])
+        rescue ActiveRecord::RecordNotFound => message_error
+          @message_error = message_error
+        end
       end
 
       # Only allow a trusted parameter "white list" through.
