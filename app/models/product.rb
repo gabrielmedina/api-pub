@@ -1,15 +1,14 @@
 class Product < ApplicationRecord
-  mount_uploader :image, ImageUploader
-  belongs_to :category
-
-  validates :name, presence: true
-  validates :price, presence: true
-  validates :quantity, presence: true
-
+  include Sluggi::Slugged
   extend FriendlyId
+
   friendly_id :name, use: :slugged
 
-  include Sluggi::Slugged
+  validates :name, :price, :quantity, presence: true
+
+  mount_uploader :image, ImageUploader
+
+  belongs_to :category
 
   def slug_value
     name

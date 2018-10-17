@@ -1,13 +1,12 @@
 class Category < ApplicationRecord
-  has_many :products, dependent: :destroy
-
-  validates :name, presence: true
-  validates :description, presence: true
-
+  include Sluggi::Slugged
   extend FriendlyId
+
   friendly_id :name, use: :slugged
 
-  include Sluggi::Slugged
+  validates :name, :description, presence: true
+
+  has_many :products, dependent: :destroy
 
   def slug_value
     name
