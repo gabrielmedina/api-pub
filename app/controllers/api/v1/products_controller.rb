@@ -1,6 +1,8 @@
 module Api
   module V1
     class ProductsController < ApplicationController
+      include RenderJson
+
       before_action :set_product, only: [:show, :update, :destroy]
 
       # GET /products
@@ -48,20 +50,6 @@ module Api
       end
 
       private
-
-      def render_json(status, data = {}, message = 'sucesso')
-        if status == :success
-          render json: {
-            status: 'SUCCESS',
-            message: message,
-            data: data
-          }, status: :ok
-        else
-          render json: {
-            status: 'ERROR',
-          }, status: :unprocessable_entity
-        end
-      end
 
       # Use callbacks to share common setup or constraints between actions.
       def set_product

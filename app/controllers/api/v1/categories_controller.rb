@@ -1,32 +1,22 @@
 module Api
   module V1
     class CategoriesController < ApplicationController
+      include RenderJson
+
       before_action :set_category, only: [:show, :update, :destroy]
 
       # GET /categories
       def index
         @categories = Category.order('created_at DESC')
-
-        render json: {
-          status: 'SUCCESS',
-          message: 'Sucesso!',
-          data: @categories
-        }, status: :ok
+        render_json(:success, @categories)
       end
 
       # GET /categories/1
       def show
         if @category
-          render json: {
-            status: 'SUCCESS',
-            message: 'Sucesso!',
-            data: @category.as_json(include: :products)
-          }, status: :ok
+          render_json(:success, @category.as_json(include: :products))
         else
-          render json: {
-            status: 'ERROR',
-            message: 'Opa, não localizamos essa categoria!'
-          }, status: :unprocessable_entity
+          render_json(:error)
         end
       end
 
@@ -35,48 +25,27 @@ module Api
         @category = Category.new(category_params)
 
         if @category.save
-          render json: {
-            status: 'SUCCESS',
-            message: 'Categoria adicionada!',
-            data: @category
-          }, status: :ok
+          render_json(:success, @category, 'Categoria adicionada!')
         else
-          render json: {
-            status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
-          }, status: :unprocessable_entity
+          render_json(:error)
         end
       end
 
       # PATCH/PUT /categories/1
       def update
         if @category.update_attributes(product_params)
-          render json: {
-            status: 'SUCCESS',
-            message: 'Categoria atualizada!',
-            data: @category
-          }, status: :ok
+          render_json(:success, @category, 'Categoria atualizada!')
         else
-          render json: {
-            status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
-          }, status: :unprocessable_entity
+          render_json(:error)
         end
       end
 
       # DELETE /categories/1
       def destroy
         if @category.destroy
-          render json: {
-            status: 'SUCCESS',
-            message: 'Categoria deletada!',
-            data: @category
-          }, status: :ok
+          render_json(:success, @category, 'Categoria deletada!')
         else
-          render json: {
-            status: 'ERROR',
-            message: 'Opa, deu alguma coisa errada por aqui, patrão.'
-          }, status: :unprocessable_entity
+          render_json(:error)
         end
       end
 
@@ -84,7 +53,11 @@ module Api
 
       # Use callbacks to share common setup or constraints between actions.
       def set_category
-        @category = Category.friendly.find(params[:id])
+        begin
+          @category = Category.friendly.find(params[:id])
+        rescue ActiveRecord::RecordNotFound => message_error
+          @message_error = message_error
+        end
       end
 
       # Only allow a trusted parameter "white list" through.
